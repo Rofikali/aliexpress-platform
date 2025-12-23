@@ -1,0 +1,36 @@
+uv run ./manage.py makemigrations products
+
+uv run ./manage.py makemigrations products
+
+uv run ./manage.py migrate
+
+uv run ./manage.py showmigrations
+
+{
+  "product_id": "550e8400-e29b-41d4-a716-446655440000",
+  "seller_id": "123e4567-e89b-12d3-a456-426614174000",
+  "title": "Wireless Mouse",
+  "description": "Ergonomic wireless mouse with USB receiver",
+  "price": 15.99,
+  "stock": 100
+}
+
+
+{
+  "product_id": "550e8400-e29b-41d4-a716-446655440001",
+  "seller_id": "123e4567-e89b-12d3-a456-426614174000",
+  "title": "Mechanical Keyboard",
+  "description": "RGB backlit mechanical keyboard with blue switches",
+  "price": 49.99,
+  "stock": 50
+}
+  
+
+{
+  "product_id": "550e8400-e29b-41d4-a716-446655440002",
+  "seller_id": "123e4567-e89b-12d3-a456-426614174000",
+  "title": "USB-C Hub",
+  "description": "Multiport USB-C hub with HDMI, USB 3.0, and SD card slots",
+  "price": 29.99,
+  "stock": 75
+}

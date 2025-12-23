@@ -1,4 +1,5 @@
-### uv export --format=requirements.txt > requirements.txt
+### uv pip freeze > requirements.txt
+
 
 ### 
     docker compose down -v

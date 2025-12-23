@@ -6,10 +6,15 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
+
+# ---- system dependencies ----
 RUN apt-get update && apt-get install -y \
+    gcc \
     build-essential \
     libpq-dev \
     netcat-openbsd \
+    librdkafka-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
