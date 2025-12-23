@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parents[3]
 
@@ -23,10 +25,10 @@ print("BASE_DIR in base.py:", BASE_DIR)
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-40@+8a$+7krzn4r$b-nvawzsi!4g!4=@b%(+6@k=yqs+!-y3w$"
+SECRET_KEY = os.getenv.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv.get("DEBUG") == "1"
 
 ALLOWED_HOSTS = []
 
@@ -94,16 +96,36 @@ WSGI_APPLICATION = "config.wsgi.application"
 # }
 
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "aliexpress",
+#         "USER": "ali",
+#         "PASSWORD": "ali123",
+#         "HOST": "postgres",
+#         "PORT": 5432,
+#     }
+# }
+
+# import os
+# from dotenv import load_dotenv
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+load_dotenv(BASE_DIR / ".env")
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "aliexpress",
-        "USER": "ali",
-        "PASSWORD": "ali123",
-        "HOST": "postgres",
-        "PORT": 5432,
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": os.environ.get("POSTGRES_HOST"),  # MUST be "db"
+        "PORT": os.environ.get("POSTGRES_PORT"),
     }
 }
+
 
 REDIS_URL = "redis://redis:6379/0"
 KAFKA_BOOTSTRAP_SERVERS = ["kafka:9092"]
@@ -143,3 +165,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
