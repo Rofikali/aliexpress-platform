@@ -1,0 +1,13 @@
+### docker compose logs -f api ( Django app logs )
+
+    Postgres is up!
+    Applying migrations...
+    Starting gunicorn...
+
+###  docker compose up ( start all services )
+
+    # Outbox
+    docker compose exec api python manage.py process_outbox
+
+    # Product Kafka consumer
+    docker compose exec api python manage.py run_product_search_consumer

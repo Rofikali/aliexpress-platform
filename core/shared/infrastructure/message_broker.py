@@ -1,5 +1,27 @@
-from kafka import KafkaProducer
+# import json
+# from kafka import KafkaProducer
+# from django.conf import settings
+
+# _producer = None
+
+
+# def get_kafka_producer():
+#     global _producer
+
+#     if _producer is None:
+#         _producer = KafkaProducer(
+#             bootstrap_servers=settings.KAFKA_BOOTSTRAP_SERVERS,
+#             value_serializer=lambda v: json.dumps(v).encode("utf-8"),
+#             retries=5,
+#         )
+
+#     return _producer
+
+
 import json
+import time
+from kafka import KafkaProducer
+from kafka.errors import NoBrokersAvailable
 from django.conf import settings
 
 _producer = None
@@ -8,11 +30,23 @@ _producer = None
 def get_kafka_producer():
     global _producer
 
-    if _producer is None:
-        _producer = KafkaProducer(
-            bootstrap_servers=settings.KAFKA_BOOTSTRAP_SERVERS,
-            value_serializer=lambda v: json.dumps(v).encode("utf-8"),
-            key_serializer=lambda k: k.encode("utf-8") if k else None,
-        )
+    if _producer:
+        return _producer
+
+    retries = 10
+    delay = 3  # seconds
+
+    for attempt in range(retries):
+        try:
+            _producer = KafkaProducer(
+                bootstrap_servers=settings.KAFKA_BOOTSTRAP_SERVERS,
+                value_serializer=lambda v: json.dumps(v).encode("utf-8"),
+                retries=5,
+            )
+            return _producer
+        except NoBrokersAvailable:
+            if attempt == retries - 1:
+                raise
+            time.sleep(delay)
 
     return _producer

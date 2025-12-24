@@ -18,6 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include, path
+from core.shared.adapters.http.metrics_view import metrics_view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -25,4 +26,6 @@ urlpatterns = [
         "api/v1/", include("core.domains.products.adapters.inbound.rest.product_urls")
     ),
     path("", include("core.shared.infrastructure.health.urls")),
+    path("metrics/", metrics_view),
+
 ]

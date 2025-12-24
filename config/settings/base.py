@@ -18,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parents[3]
 
 
 # BASE_DIR = Path(__file__).resolve().parent.parent
-print("BASE_DIR in base.py:", BASE_DIR)
+# print("BASE_DIR in base.py:", BASE_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -87,33 +87,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "aliexpress",
-#         "USER": "ali",
-#         "PASSWORD": "ali123",
-#         "HOST": "postgres",
-#         "PORT": 5432,
-#     }
-# }
-
-# import os
-# from dotenv import load_dotenv
-
-
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 load_dotenv(BASE_DIR / ".env")
@@ -124,7 +97,7 @@ DATABASES = {
         "NAME": os.environ.get("POSTGRES_DB"),
         "USER": os.environ.get("POSTGRES_USER"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
-        "HOST": os.environ.get("POSTGRES_HOST"),  # MUST be "db"
+        "HOST": os.environ.get("POSTGRES_HOST", "db"),  # MUST be "db"
         "PORT": os.environ.get("POSTGRES_PORT"),
     }
 }
