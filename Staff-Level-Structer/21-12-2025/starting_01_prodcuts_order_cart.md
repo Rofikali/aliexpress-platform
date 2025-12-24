@@ -70,6 +70,10 @@ core/
             ├── datetime_utils.py
             ├── id_generator.py
             └── validation_utils.py
+        ├── observability/          # LOGS, METRICS, TRACING
+        │   ├── logging/
+        │   ├── tracing/
+        │   └── metrics/
 ### PRODUCTS DOMAIN — HOLY GRAIL STRUCTURE
     └── domains/
         └── products/
