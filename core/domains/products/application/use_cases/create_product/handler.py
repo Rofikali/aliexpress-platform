@@ -21,6 +21,7 @@
 
 import uuid
 from core.domains.products.domain.aggregates.product_aggregate import ProductAggregate
+from core.shared.observability.metrics import products_created_total
 
 
 class CreateProductHandler:
@@ -39,5 +40,7 @@ class CreateProductHandler:
 
         self.repository.save(aggregate)
         self.event_publisher.publish_all(aggregate.pull_events())
+        # sending metrics to prometheus
+        products_created_total.inc()  # 👈 THIS IS THE KEY
 
         return aggregate  # optional but useful

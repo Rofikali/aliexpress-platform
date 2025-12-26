@@ -25,26 +25,8 @@ It will be copy-pasteable and act as your single reference blueprint.
 Save as:
 
 i want like does this 100% valid then only i use this
-docker/
-    django/
-        Dockerfile
-        entrypoint.sh
-    kafka/
-        Dockerfile
-    postgres/
-        Dockerfile
-    redis/
-        Dockerfile
-    elestic-search/
-        Dockerfile
-
-        
-
-
-
 
 aliexpress-clone-holy-grail/
-
 1️⃣ ROOT FOLDER STRUCTURE
 aliexpress-platform/
 ### Products Domain
@@ -74,6 +56,18 @@ core/
         │   ├── logging/
         │   ├── tracing/
         │   └── metrics/
+docker/
+    django/
+        Dockerfile
+        entrypoint.sh
+    kafka/
+        Dockerfile
+    postgres/
+        Dockerfile
+    redis/
+        Dockerfile
+    elestic-search/
+        Dockerfile
 ### PRODUCTS DOMAIN — HOLY GRAIL STRUCTURE
     └── domains/
         └── products/

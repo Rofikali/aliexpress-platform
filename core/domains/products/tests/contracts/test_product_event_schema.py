@@ -1,4 +1,5 @@
 from core.domains.products.tests.factories import build_product_created_event
+import pytest
 
 
 def test_product_created_event_schema():
