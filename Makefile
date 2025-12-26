@@ -79,7 +79,7 @@ up-build:
 	$(COMPOSE) up -d --build
 
 down:
-	$(COMPOSE) down -v
+	$(COMPOSE) -f docker-compose.yml -f docker-compose.observability.yml down -v
 
 restart:
 	$(COMPOSE) down
