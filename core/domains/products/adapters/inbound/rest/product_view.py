@@ -1,3 +1,6 @@
+# file name: core/domains/products/adapters/inbound/rest/product_view.py
+
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -30,6 +33,9 @@ class CreateProductView(APIView):
         )
 
         command = CreateProductCommand(**serializer.validated_data)
-        handler.handle(command)
+        # handler.handle(command)
+        aggregate = handler.handle(command)
 
-        return Response(status=status.HTTP_201_CREATED)
+        return Response(
+            {"product_id": str(aggregate.id)}, status=status.HTTP_201_CREATED
+        )

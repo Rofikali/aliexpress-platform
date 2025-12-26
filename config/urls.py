@@ -19,6 +19,8 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include, path
 from core.shared.adapters.http.metrics_view import metrics_view
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -27,5 +29,7 @@ urlpatterns = [
     ),
     path("", include("core.shared.infrastructure.health.urls")),
     path("metrics/", metrics_view),
-
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

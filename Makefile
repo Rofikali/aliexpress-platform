@@ -1,8 +1,10 @@
 # -------------------------------
 # Global config
 # -------------------------------
+DOCKER=docker
 COMPOSE=docker compose
 SERVICE_API=api
+SERVICE_DB=db
 
 .DEFAULT_GOAL := help
 .PHONY: help up down restart logs shell \
@@ -19,12 +21,14 @@ help:
 	@echo "🚀 AliExpress Platform – Make Commands"
 	@echo ""
 	@echo "Infrastructure:"
+	@echo "  make observe-up-build Start all services with observability and build"
 	@echo "  make observe         Start all services with observability"
 	@echo "  make up              Start all services"
 	@echo "  make up-build        Start all services with build"
 	@echo "  make down            Stop and remove containers + volumes"
 	@echo "  make restart         Restart services"
-	@echo "  make logs            Follow API logs"
+	@echo "  make logs-api        Follow API logs"
+	@echo "  make logs-db         Follow DB logs"
 	@echo "  make shell           Enter API container shell"
 	@echo ""
 	@echo "Django:"
@@ -57,7 +61,16 @@ help:
 # Infrastructure
 # -------------------------------
 observe:
+	$(COMPOSE) -f docker-compose.yml -f docker-compose.observability.yml up -d
+
+observe-up-build:
 	$(COMPOSE) -f docker-compose.yml -f docker-compose.observability.yml up -d --build
+
+ps:
+	$(COMPOSE) ps
+
+ps-stoped:
+	$(COMPOSE) ps -a
 
 up:
 	$(COMPOSE) up -d
@@ -72,15 +85,39 @@ restart:
 	$(COMPOSE) down
 	$(COMPOSE) up -d --build
 
-logs:
+stop-api:
+	$(DOCKER) stop api
+
+stop-es:
+	$(DOCKER) stop aliexpress_elasticsearch
+
+logs-api:
 	$(COMPOSE) logs -f $(SERVICE_API)
+
+logs-db:
+	$(COMPOSE) logs -f $(SERVICE_DB)
 
 shell:
 	$(COMPOSE) exec $(SERVICE_API) bash
 
+python-shell:
+	docker exec -it aliexpress_api python manage.py runserver
+	
 # -------------------------------
 # Django
 # -------------------------------
+
+# -------------------------------
+# restart python app inside the container
+# -------------------------------
+
+# docker compose restart api
+restart-api:
+	$(COMPOSE) restart $(SERVICE_API)
+
+superuser:
+	$(COMPOSE) exec $(SERVICE_API) python manage.py createsuperuser
+
 migrate:
 	$(COMPOSE) exec $(SERVICE_API) python manage.py migrate
 

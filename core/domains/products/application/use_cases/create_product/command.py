@@ -1,4 +1,4 @@
-# command.py
+# file name: core/domains/products/application/use_cases/create_product/command.py
 from dataclasses import dataclass
 
 
@@ -9,6 +9,6 @@ class CreateProductCommand:
     Matches the current minimal CreateProductHandler.
     """
 
-    product_id: str
+    # product_id: str
     seller_id: str
     title: str
