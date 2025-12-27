@@ -19,9 +19,10 @@
 #     readonly_fields = ("id", "created_at", "updated_at")
 
 
-
 from django.contrib import admin
-from core.domains.products.adapters.outbound.persistence.models.product_model import ProductModel
+from core.domains.products.adapters.outbound.persistence.models.product_model import (
+    ProductModel,
+)
 
 
 @admin.register(ProductModel)
@@ -49,4 +50,4 @@ class ProductAdmin(admin.ModelAdmin):
         return False  # ❌ Products must be created via API
 
     def has_delete_permission(self, request, obj=None):
-        return False  # ❌ Prevent destructive ops
+        return True  # ❌ Prevent destructive ops
