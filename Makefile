@@ -80,10 +80,14 @@ up-build:
 
 down:
 	$(COMPOSE) -f docker-compose.yml -f docker-compose.observability.yml down -v
+# 	$(COMPOSE) -f docker-compose.yml -f docker-compose.observability.yml down -v
 
 restart:
 	$(COMPOSE) down
 	$(COMPOSE) up -d --build
+
+stop:
+	$(COMPOSE) -f docker-compose.yml -f docker-compose.observability.yml stop
 
 stop-api:
 	$(DOCKER) stop api
