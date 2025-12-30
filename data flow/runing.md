@@ -13,12 +13,8 @@
 
 ### get into perticular service shell
 
+    # Product Kafka consumer
+    docker compose exec api python manage.py run_product_event_consumer
+
     # Outbox
     docker compose exec api python manage.py process_outbox
-
-    # Product Kafka consumer
-    docker compose exec api python manage.py run_product_search_consumer
-
-### ✅ CORRECT (inside API container)
-
-    docker compose exec api python manage.py run_product_event_consumer

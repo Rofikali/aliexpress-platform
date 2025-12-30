@@ -52,10 +52,19 @@ class OutboxProcessor:
 
     def _publish_event(self, event: OutboxEvent):
         try:
+            # self.producer.send(
+            #     topic=event.event_type,
+            #     value=event.payload,
+            # )
             self.producer.send(
                 topic=event.event_type,
-                value=event.payload,
+                value={
+                    "type": event.event_type,
+                    "aggregate_id": str(event.aggregate_id),
+                    "payload": event.payload,
+                },
             )
+
             event.status = "PUBLISHED"
             event.save(update_fields=["status"])
 
