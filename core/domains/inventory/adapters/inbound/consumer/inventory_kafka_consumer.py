@@ -1,6 +1,6 @@
 # from core.domains.inventory.application.use_cases.create_inventory_for_product.command import CreateInventoryForProductCommand
 
-from core.shared.infrastructure.kafka_consumer import create_consumer
+from core.shared.infrastructure.messaging.kafka_consumer import create_consumer
 from .product_created_handler import ProductCreatedHandler
 
 TOPICS = ["product.created"]

@@ -114,8 +114,14 @@ DATABASES = {
 }
 
 
+# 🔐 REQUIRED — fail fast if missing
+SERVICE_NAME = os.environ.get("SERVICE_NAME")
+
+if not SERVICE_NAME:
+    raise RuntimeError("SERVICE_NAME environment variable is required")
+
+
 REDIS_URL = "redis://redis:6379/0"
-# KAFKA_BOOTSTRAP_SERVERS = ["kafka:9092"]
 # settings.py
 # KAFKA_BOOTSTRAP_SERVERS = ["localhost:29092"]
 # import os

@@ -1,7 +1,7 @@
 # from core.domains.orders.saga.checkout_saga_consumer import CheckoutSagaConsumer
 
 
-from core.shared.infrastructure.kafka_consumer import create_consumer
+from core.shared.infrastructure.messaging.kafka_consumer import create_consumer
 from .checkout_saga import CheckoutSaga
 
 TOPICS = [

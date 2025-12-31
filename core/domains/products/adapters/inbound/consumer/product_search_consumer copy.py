@@ -1,6 +1,6 @@
 # filename : core/domains/products/adapters/inbound/consumer/product_search_consumer.py
 
-from core.shared.infrastructure.kafka_consumer import create_consumer
+from core.shared.infrastructure.messaging.kafka_consumer import create_consumer
 from core.shared.infrastructure.safe_consumer import safe_handle_event
 from core.shared.infrastructure.logging import get_logger
 from core.shared.infrastructure.tracing import start_span
