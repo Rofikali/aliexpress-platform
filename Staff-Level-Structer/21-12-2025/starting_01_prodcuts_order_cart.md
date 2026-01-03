@@ -209,6 +209,37 @@ core/
     │   │   ├── safe_consumer.py        # Retry / DLQ / backoff wrapper
     │   │   ├── outbox_processor.py     # DB → Kafka publisher
     │   │   └── event_envelope.py       # Standard event format
+            ├── schemas/
+            │   ├── product/
+            │   │   ├── product_created.v1.json
+            │   │   ├── product_created.v2.json
+            │   │   └── README.md
+            │   ├── _envelope/
+            │   │   ├── event_envelope.v1.json
+            │   │   └── README.md
+            │   └── README.md
+            ├── dlq/
+                    <!-- ├── README.md
+                    ├── dlq_publisher.py
+                    ├── retry_policy.py
+                    └── topics.md
+                    ├── dlq/ -->
+                │   ├── dlq_producer.py
+                │   └── dlq_utils.py
+                Producer  # Kafka producer singleton
+                    __init__.py
+                    schema_validator.py  # Avro schema registry client
+                consumers/
+                    ├── base_consumer.py
+                    ├── schema_compatibility.py
+                    ├── deserializer.py
+                    └── errors.py
+                    ├── retry_policy.py          👈 NEW
+            │       ├── retry_executor.py        👈 NEW
+    │   product_event_consumer.py  # Example consumer
+
+
+
 
     │   │
     │   │   # ❗ RULE:

@@ -57,7 +57,7 @@
 
 
 import time
-from core.shared.infrastructure.retry_policy import (
+from core.shared.infrastructure.messaging.consumers.retry_policy import (
     should_retry,
     increment_retry,
 )
