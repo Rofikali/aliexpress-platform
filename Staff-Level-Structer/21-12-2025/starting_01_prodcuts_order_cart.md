@@ -157,6 +157,17 @@ Kafka
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 ### 🏆 HOLY GRAIL BLUEPRINT — ALIEXPRESS CLONE
 
 Save as:
@@ -204,10 +215,8 @@ core/
     │   │   # - Kafka lives ONLY here
     │   │   # - Domains NEVER import Kafka directly
     │   │
-    │   ├── persistence/                # DB-RELATED INFRA
-    │   │   │
-    │   │   ├── outbox_models.py        # OutboxEvent (shared table)
-    │   │   └── transaction_utils.py    # atomic helpers
+
+    │   └── transaction_utils.py    # atomic helpers
     │   │
     │   ├── cache/                      # REDIS / CACHE
     │   │   │
@@ -402,10 +411,19 @@ docker/
             │   └── adapters/
             │
             └── docs/
-                ├── README.md
-                ├── domain_model.md
-                ├── invariants.md
-                └── adr.md
+                    ├── README.md               # What & Why of the domain
+                    ├── domain_model.md         # Business concepts & aggregates
+                    ├── invariants.md           # Rules that must never break
+                    ├── workflow.md             # State transitions & lifecycles
+                    ├── rbac.md                 # Who can do what
+                    ├── audit.md                # What must be logged & why
+                    ├── moderation.md           # Human review processes
+                    ├── failure_scenarios.md    # How the system fails safely
+                    ├── data_ownership.md       # Who owns which data
+                    └── adr.md                  # Architecture decisions
+                        why.md                description for what these files doing and what
+                        execution_roadmap.md   step by step execution plan
+
 🗂️ EXACT TEST FOLDER PLACEMENT (FINAL)
 ✅ DOMAIN-LOCAL TESTS (MOST IMPORTANT)
 

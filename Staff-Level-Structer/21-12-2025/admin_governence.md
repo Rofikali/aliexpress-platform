@@ -168,12 +168,17 @@ Extensible: Plug in new governance workflows without touching domain code.
         │   └── saga/
         │
         └── docs/
-            ├── README.md
-            ├── audit.md
-            ├── rbac.md
-            ├── workflow.md
-            ├── moderation.md
-            └── adr.md
+               ├── README.md               # What & Why of the domain
+               ├── domain_model.md         # Business concepts & aggregates
+               ├── invariants.md           # Rules that must never break
+               ├── workflow.md             # State transitions & lifecycles
+               ├── rbac.md                 # Who can do what
+               ├── audit.md                # What must be logged & why
+               ├── moderation.md           # Human review processes
+               ├── failure_scenarios.md    # How the system fails safely
+               ├── data_ownership.md       # Who owns which data
+               └── adr.md                  # Architecture decisions
+
 
 🔁 EVENT → AUDIT FLOW
 AdminPerformsAction

@@ -1,15 +1,5 @@
 # # from core.domains.products.adapters.outbound.persistence.models.product_model import ProductModel
 
-# from django.db import models
-
-
-# class ProductModel(models.Model):
-#     id = models.UUIDField(primary_key=True)
-#     seller_id = models.UUIDField()
-#     title = models.CharField(max_length=255)
-
-# above is old code and below is new code which one should i choose, after below code facing this error 
-
 from django.db import models
 import uuid
 

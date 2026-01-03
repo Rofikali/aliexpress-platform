@@ -37,7 +37,11 @@ kafka-console-consumer \
 --topic product.events \
 --from-beginning
 
-
+docker exec -it aliexpress_kafka \
+kafka-console-consumer \
+--bootstrap-server localhost:9092 \
+--topic product.created \
+--from-beginning
 
 
 
@@ -55,3 +59,65 @@ kafka-console-consumer \
   Consumer (adapter)
     ↓
   Projection / Side Effect
+
+
+
+
+  let's solve this problem mali8876-hub ➜ /workspaces/aliexpress-platform (master) $ docker exec -it aliexpress_kafka kafka-topics \
+  --bootstrap-server localhost:9092 \
+  --list
+product.events
+@rahamali8876-hub ➜ /workspaces/aliexpress-platform (master) $ 
+@rahamali8876-hub ➜ /workspaces/aliexpress-platform (master) $ docker compose exec api python manage.py process_outbox
+WARN[0000] The "b" variable is not set. Defaulting to a blank string. 
+WARN[0000] The "b" variable is not set. Defaulting to a blank string. 
+WARN[0000] The "b" variable is not set. Defaulting to a blank string. 
+WARN[0000] The "b" variable is not set. Defaulting to a blank string. 
+WARN[0000] The "b" variable is not set. Defaulting to a blank string. 
+WARN[0000] The "b" variable is not set. Defaulting to a blank string. 
+WARN[0000] The "b" variable is not set. Defaulting to a blank string. 
+Outbox processor started
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+Building event envelope for OutboxEvent ID: filename : core/shared/infrastructure/messaging/event_envelope.py :  product.created
+@rahamali8876-hub ➜ /workspaces/aliexpress-platform (master) $ docker exec -it aliexpress_kafka kafka-topics   --bootstrap-server localhost:9092   --list
+product.events
+@rahamali8876-hub ➜ /workspaces/aliexpress-platform (master) $ docker exec -it aliexpress_kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic product.events --from-beginning
+^CProcessed a total of 0 messages
+@rahamali8876-hub ➜ /workspaces/aliexpress-platform (master) $ 
+@rahamali8876-hub ➜ /workspaces/aliexpress-platform (master) $ docker exec -it aliexpress_kafka \
+kafka-console-consumer \
+--bootstrap-server localhost:9092 \
+--topic product.created \
+--from-beginning
+[2026-01-03 09:04:30,412] WARN [Consumer clientId=console-consumer, groupId=console-consumer-65908] Error while fetching metadata with correlation id 2 : {product.created=LEADER_NOT_AVAILABLE} (org.apache.kafka.clients.NetworkClient) with Walk you through how one real bug would be handled using these docs 
