@@ -1,13 +1,10 @@
 # filename : core/shared/observability/metrics/metrics.py
 
 from prometheus_client import Counter, Histogram, Gauge
-from core.shared.infrastructure.observability.metrics.counters import (
+from core.shared.observability.metrics.counters import (
     DLQ_COUNTER,
     RETRY_COUNTER,
 )
-
-
-
 
 
 EVENTS_PROCESSED = Counter(
@@ -28,6 +25,7 @@ EVENT_FAILURES = Counter(
     ["consumer", "event_type"],
 )
 
+
 class ConsumerMetrics:
     @staticmethod
     def increment_dlq(topic: str, reason: str):
@@ -38,7 +36,8 @@ class ConsumerMetrics:
     def increment_retry(topic: str):
         RETRY_COUNTER.labels(topic=topic).inc()
         print(f"[METRICS] Retry incremented for topic={topic}")
-        
+
+
 # ========= PRODUCT METRICS =========
 products_created_total = Counter(
     "products_created_total", "Total number of products created"
