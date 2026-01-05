@@ -1,13 +1,12 @@
 import time
 
 from core.shared.infrastructure.messaging.dlq.dlq_producer import DLQProducer
-from core.shared.infrastructure.messaging.schema.validators import (
+from core.shared.infrastructure.messaging.schemas.validators import (
     JsonSchemaValidator,
     SchemaValidationError,
 )
-from core.shared.infrastructure.observability.metrics.consumer_metrics import (
-    ConsumerMetrics,
-)
+from core.shared.observability.metrics.metrics import ConsumerMetrics
+from django.conf import settings
 
 
 class SafeConsumer:
@@ -16,7 +15,8 @@ class SafeConsumer:
 
     def __init__(self, topic: str):
         self.topic = topic
-        self.dlq_producer = DLQProducer()
+        # self.dlq_producer = DLQProducer()
+        self.dlq_producer = DLQProducer(bootstrap_servers=settings.KAFKA_BOOTSTRAP_SERVERS)
 
     def process(self, message: dict):
         # 1️⃣ Schema validation

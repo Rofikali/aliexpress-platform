@@ -1,3 +1,4 @@
+# filename : core/shared/management/commands/run_inventory_consumer.py
 from django.core.management.base import BaseCommand
 from core.domains.inventory.adapters.inbound.consumer.inventory_kafka_consumer import (
     run_inventory_consumer,

@@ -1,7 +1,8 @@
 from kafka import KafkaProducer
 import json
 import os
-from core.shared.infrastructure.messaging.message_broker import KafkaProducerClient
+# from core.shared.infrastructure.messaging.message_broker import get_kafka_producer
+# from core.shared.infrastructure.messaging.message_broker import KafkaProducerClient
 
 DLQ_TOPIC_PREFIX = os.getenv("DLQ_TOPIC_PREFIX", "dlq.")
 
@@ -26,19 +27,3 @@ class DLQProducer:
         self.producer.send(dlq_topic, message)
         self.producer.flush()
         print(f"[DLQ] Sent message to {dlq_topic} due to {reason}")
-
-
-
-
-# class DLQProducer:
-#     def __init__(self):
-#         self.producer = KafkaProducerClient()
-
-#     def send_to_dlq(self, topic: str, message: dict, reason: str):
-#         dlq_topic = f"{topic}.dlq"
-#         payload = {
-#             "original_topic": topic,
-#             "reason": reason,
-#             "message": message,
-#         }
-#         self.producer.send(dlq_topic, payload)
