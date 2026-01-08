@@ -184,6 +184,8 @@ core/
     │
     ├── apps.py                         # Django AppConfig
     └── __init__.py
+    docs/operations/commands.md         # Below is a single, numbered, staff-grade OPERATIONS COMMANDS GUIDE that includes YOUR actual commands,                                organized so new developers can follow it step-by-step without Kafka/Django fear.
+
 
 ### Infrastructure Dockerfiles
 docker/

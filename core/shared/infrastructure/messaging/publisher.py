@@ -1,3 +1,4 @@
+# filename : core/shared/infrastructure/messaging/publisher.py
 from core.shared.infrastructure.messaging.broker.kafka_producer import (
     get_kafka_producer,
 )
@@ -24,12 +25,6 @@ def _get_dlq():
     return _dlq
 
 
-# def publish_retry(topic: str, event: dict):
-#     producer = _get_producer()
-#     producer.send(topic, value=event)
-#     producer.flush()
-
-
 def publish_retry(topic: str, event: dict):
     aggregate_id = event.get("aggregate_id")
     if not aggregate_id:
@@ -43,6 +38,14 @@ def publish_retry(topic: str, event: dict):
     )
 
 
+import logging
+
+
 def publish_to_dlq(original_topic: str, envelope: dict, reason: str):
+    logging.debug(
+        f"Sending event to DLQ for topic {original_topic} due to reason: {reason}, "
+        f"and filename : core/shared/infrastructure/messaging/publisher.py"
+    )
+
     dlq = _get_dlq()
     dlq.send_to_dlq(original_topic, envelope, reason)

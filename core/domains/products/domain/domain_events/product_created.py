@@ -4,9 +4,16 @@ from dataclasses import dataclass, field
 from uuid import UUID
 from core.shared.kernel.domain_event import DomainEvent
 
+import loggging
+
 
 @dataclass(frozen=True)
 class ProductCreated(DomainEvent):
+    loggging.debug(
+        f"Creating ProductCreated event class "
+        f"and filename : core/domains/products/domain/domain_events/product_created.py"
+    )
+
     aggregate_id: UUID
     seller_id: UUID
     title: str

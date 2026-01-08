@@ -1,7 +1,13 @@
 from core.shared.infrastructure.messaging.consumers.safe_consumer import SafeConsumer
+import logging
 
 
 class ProductCreatedConsumer(SafeConsumer):
+    logging.debug(
+        "Initializing ProductCreatedConsumer for topic product.events "
+        "and filename : core/shared/infrastructure/messaging/product_event_consumer.py"
+    )
+
     def __init__(self):
         super().__init__(topic="product.events")
 

@@ -36,12 +36,16 @@ def handle_product_event(event: dict):
         extra={"event_type": event_type, "aggregate_id": event["aggregate_id"]},
     )
 
-
+import logging
 def run_product_event_consumer():
     """
     Staff-grade Kafka consumer loop for read-model projection.
     Safe, continuous, retry-aware.
     """
+    logging.debug(
+        "Starting Product Event Consumer for topics {TOPICS} ",
+        "and filename : core/domains/products/adapters/inbound/consumer/product_event_consumer.py"
+    )
     consumer = create_consumer(TOPICS, GROUP_ID)
     logger.info("Product Event Consumer started and polling Kafka...")
 
