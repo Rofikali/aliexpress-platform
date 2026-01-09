@@ -18,7 +18,7 @@ class SafeConsumer:
     def __init__(self, topic: str):
         self.topic = topic
         self.dlq_producer = DLQProducer(
-            bootstrap_servers=settings.KAFKA_BOOTSTRAP_SERVERS
+            # bootstrap_servers=settings.KAFKA_BOOTSTRAP_SERVERS
         )
 
     def process(self, message: dict):
@@ -26,6 +26,8 @@ class SafeConsumer:
         try:
             JsonSchemaValidator.validate(message)
         except SchemaValidationError as e:
+            print("❌ SCHEMA ERROR MESSAGE:", message)
+            print("❌ SCHEMA ERROR:", str(e))
             ConsumerMetrics.increment_dlq(self.topic, "schema_error")
             self.dlq_producer.send_to_dlq(self.topic, message, reason=str(e))
             return

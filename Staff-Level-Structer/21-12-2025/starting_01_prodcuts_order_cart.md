@@ -82,6 +82,7 @@ core/
     │   # - Safe to import from ANY layer
     │
     ├── infrastructure/                 # 🛠️ TECHNICAL IMPLEMENTATIONS
+            settings/elasticsearch.py   # Define Elasticsearch settings (single source of truth)
     │
     │   ├── messaging/                  # 📡 ASYNC MESSAGING (Kafka-based)
     │   │
@@ -186,6 +187,7 @@ core/
     └── __init__.py
     docs/operations/commands.md         # Below is a single, numbered, staff-grade OPERATIONS COMMANDS GUIDE that includes YOUR actual commands,                                organized so new developers can follow it step-by-step without Kafka/Django fear.
 
+<!-- ***** 3️⃣ Rebuild projections from Kafka -->
 
 ### Infrastructure Dockerfiles
 docker/
@@ -308,8 +310,12 @@ docker/
             │           └── product_cache_adapter.py
             │
             ├── read_model/                  # CQRS / SEARCH
+                    documents/
+            │           ├── product_search_document.py
+                        __init__.py
+
             │   ├── projections/
-            │   │   ├── product_search_projection.py
+            │   │   ├── product_event_projection.py
             │   │   └── product_list_projection.py
             │   │
             │   ├── tables/

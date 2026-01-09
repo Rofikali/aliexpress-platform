@@ -46,7 +46,9 @@ class OutboxPublisher:
         self.poll_interval = poll_interval
         self.max_retries = max_retries
         self.producer = producer or get_kafka_producer()
-        self.processor = OutboxProcessor(producer=self.producer)
+        # self.processor = OutboxProcessor(producer=self.producer)
+        self.processor = OutboxProcessor(get_kafka_producer())
+
 
         self.running = False
 
