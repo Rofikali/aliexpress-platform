@@ -4,8 +4,8 @@
         "event_id",
         "event_type",
         "version",
-        "occurred_at",
-        "payload"
+        "payload",
+        "metadata"
     ],
     "properties": {
         "event_id": {
@@ -17,15 +17,20 @@
         "version": {
             "type": "integer"
         },
-        "occurred_at": {
-            "type": "string",
-            "format": "date-time"
-        },
         "payload": {
             "type": "object"
         },
         "metadata": {
             "type": "object",
+            "required": [
+                "occurred_at"
+            ],
+            "properties": {
+                "occurred_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
             "additionalProperties": true
         }
     }

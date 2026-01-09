@@ -2,11 +2,11 @@
 import logging
 from django.core.management.base import BaseCommand
 from core.shared.infrastructure.messaging.kafka_consumer import create_consumer
-
-# from core.shared.infrastructure.messaging.kafka_consumer import build_consumer
 from core.shared.infrastructure.messaging.consumers.product_consumer import (
     ProductCreatedConsumer,
 )
+
+GROUP_ID = "product-command-consumer-group"
 
 
 class Command(BaseCommand):
@@ -14,8 +14,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         consumer = create_consumer(
-            topics=["product.events",],
-            group_id="product-consumer-group",
+            topics=[
+                "product.events",
+            ],
+            group_id=GROUP_ID,
         )
         handler = ProductCreatedConsumer()
 

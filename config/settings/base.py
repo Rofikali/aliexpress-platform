@@ -113,17 +113,19 @@ DATABASES = {
     }
 }
 
+# Elesticsearch Settings
+
+ELASTICSEARCH_HOSTS = [os.environ.get("ELASTICSEARCH_URL", "http://elasticsearch:9200")]
+
+# DEV MODE → no auth
+ELASTICSEARCH_USER = os.environ.get("ELASTICSEARCH_USER", None)
+ELASTICSEARCH_PASSWORD = os.environ.get("ELASTICSEARCH_PASSWORD", None)
+
 
 # 🔐 REQUIRED — fail fast if missing
-SERVICE_NAME = 'aliexpress-api'
-# SERVICE_NAME = os.environ.get("SERVICE_NAME")
-
-# if not SERVICE_NAME:
-#     raise RuntimeError("SERVICE_NAME environment variable is required")
-
+SERVICE_NAME = "aliexpress-api"
 
 REDIS_URL = "redis://redis:6379/0"
-
 
 KAFKA_BOOTSTRAP_SERVERS = os.environ.get(
     "KAFKA_BOOTSTRAP_SERVERS",
