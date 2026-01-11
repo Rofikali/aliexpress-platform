@@ -1,5 +1,6 @@
 # file name: core/domains/products/adapters/inbound/rest/product_view.py
 
+import rest_framework
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -16,18 +17,38 @@ from core.domains.products.adapters.outbound.persistence.product_repository_impl
 from core.domains.products.adapters.outbound.messaging.product_event_publisher import (
     ProductEventPublisher,
 )
-from core.domains.products.adapters.inbound.rest.product_serializer import (
+from core.domains.products.adapters.inbound.rest.serializers.product_serializer import (
     CreateProductSerializer,
 )
 
 
-class CreateProductView(APIView):
-    def post(self, request):
+# class CreateProductView(APIView):
+#     def post(self, request):
+#         serializer = CreateProductSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+
+#         handler = CreateProductHandler(
+#             repository=ProductRepositoryImpl(),
+#         )
+
+#         command = CreateProductCommand(**serializer.validated_data)
+#         aggregate = handler.handle(command)
+
+#         return Response(
+#             {"product_id": str(aggregate.product_id)},
+#             status=status.HTTP_201_CREATED,
+#         )
+from rest_framework.viewsets import ViewSet
+
+
+class CreateProductViewSet(ViewSet):
+    def create(self, request):
         serializer = CreateProductSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         handler = CreateProductHandler(
             repository=ProductRepositoryImpl(),
+            # event_publisher=ProductEventPublisher(),
         )
 
         command = CreateProductCommand(**serializer.validated_data)

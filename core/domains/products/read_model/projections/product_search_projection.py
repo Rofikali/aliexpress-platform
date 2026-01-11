@@ -1,5 +1,5 @@
 # filename : core/domains/products/read_model/projections/product_search_projection.py
-from core.shared.infrastructure.elasticsearch_client import get_es_client
+from core.shared.infrastructure.search.elasticsearch_client import get_es_client
 
 
 class ProductSearchProjection:
