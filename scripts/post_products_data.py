@@ -6,8 +6,8 @@ from multiprocessing import Process, Value, Lock, current_process
 from typing import Dict
 
 
-URL = "http://localhost:8000/api/v1/products/"
-TOTAL_REQUESTS = 3
+URL = "http://localhost:8000/api/v1/create-products/"
+TOTAL_REQUESTS = 50
 PROCESSES = 4
 TIMEOUT = 5
 

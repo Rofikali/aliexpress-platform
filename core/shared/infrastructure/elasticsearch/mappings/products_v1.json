@@ -1,0 +1,35 @@
+{
+    "settings": {
+        "number_of_shards": 1,
+        "number_of_replicas": 0
+    },
+    "mappings": {
+        "dynamic": "strict",
+        "properties": {
+            "id": {
+                "type": "keyword"
+            },
+            "title": {
+                "type": "text",
+                "analyzer": "standard",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword"
+                    }
+                }
+            },
+            "seller_id": {
+                "type": "keyword"
+            },
+            "price": {
+                "type": "double"
+            },
+            "status": {
+                "type": "keyword"
+            },
+            "occurred_at": {
+                "type": "date"
+            }
+        }
+    }
+}

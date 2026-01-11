@@ -19,36 +19,51 @@ Folder structure, DB mapping, and outbox events
 Ready for 100+ engineers
 
 It will be copy-pasteable and act as your single reference blueprint.
-🧠 HOLY GRAIL — EVENT FLOW (ASCII)
+### 🧠 HOLY GRAIL — EVENT FLOW (ASCII)
 
-domain/        -> business rules only
-application/  -> use cases
-ports/        -> interfaces
-adapters/     -> Django, DB, Kafka
-read_model/   -> CQRS
-saga/         -> cross-domain workflows
-outbox/       -> delivery guarantee
-tests/        -> domain-local tests
-docs/         -> real engineering docs
+    domain/        -> business rules only
+    application/  -> use cases
+    ports/        -> interfaces
+    adapters/     -> Django, DB, Kafka
+    read_model/   -> CQRS
+    saga/         -> cross-domain workflows
+    outbox/       -> delivery guarantee
+    tests/        -> domain-local tests
+    docs/         -> real engineering docs
 
+### 🧠 FINAL EVENT FLOW (STAFF-GRADE)
+    Domain
+    ↓ emits DomainEvent
+    Application
+    ↓ persists aggregate
+    Outbox
+    ↓ OutboxProcessor
+    Kafka (ENVELOPE)
+    ↓
+    Consumer
+    ↓
+    Projection
+    ↓
+    Elasticsearch INDEX
+  ↓
 
 ### 🔑 GOLDEN RULES (MEMORIZE)
-STAFF-LEVEL RULES (NON-NEGOTIABLE)
-Rule 1
+    STAFF-LEVEL RULES (NON-NEGOTIABLE)
+    Rule 1
 
-Domain does NOT know Kafka
+    Domain does NOT know Kafka
 
-Rule 2
+    Rule 2
 
-OutboxProcessor only publishes envelopes — never raw payloads
+    OutboxProcessor only publishes envelopes — never raw payloads
 
-Rule 3
+    Rule 3
 
-There is exactly ONE place that defines the Kafka event envelope
+    There is exactly ONE place that defines the Kafka event envelope
 
-Rule 4
+    Rule 4
 
-Kafka producer creation is infrastructure-only and singleton
+    Kafka producer creation is infrastructure-only and singleton
 
 ### 🏆 HOLY GRAIL BLUEPRINT — ALIEXPRESS CLONE
 
@@ -251,23 +266,28 @@ docker/
             ├── application/                 # USE CASES
             │   ├── use_cases/
             │   │   ├── create_product/
+                            handler.py
+                            command.py
             │   │   ├── update_product/
             │   │   ├── publish_product/
             │   │   ├── unpublish_product/
             │   │   ├── add_variant/
             │   │   ├── update_pricing/
             │   │   └── delete_product/
+                        search_products/
+                            search_products_query.py  👈 NEW #
             │   │
             │   ├── ports/
             │   │   ├── inbound/              # WHAT CAN CALL US
             │   │   │   ├── product_command_port.py
             │   │   │   └── product_query_port.py
             │   │   │
-            │   │   └── outbound/             # WHAT WE DEPEND ON
+            │   │   └── outbound/                           # WHAT WE DEPEND ON
             │   │       ├── product_repository.py
             │   │       ├── category_service_port.py
             │   │       ├── inventory_service_port.py
             │   │       └── event_publisher_port.py
+                            product_search_port.py          👈 NEW  #
             │   │
             │   └── dto/
             │       ├── product_dto.py
@@ -305,6 +325,10 @@ docker/
             │       ├── messaging/
             │       │   ├── product_event_publisher.py
             │       │   └── product_event_consumer.py
+                            product_projection_consumer.py  👈 NEW #
+
+                    ---|search/
+                            product_search_es_adapter.py  👈 NEW #
             │       │
             │       └── cache/
             │           └── product_cache_adapter.py
@@ -313,6 +337,11 @@ docker/
                     documents/
             │           ├── product_search_document.py
                         __init__.py
+                    
+                    └── indices/
+│       │               └── product_search_index.py   👈 NEW # 
+            │       repositories/
+            │           ├── product_search_repository.py
 
             │   ├── projections/
             │   │   ├── product_event_projection.py
@@ -351,6 +380,10 @@ docker/
                         why.md                description for what these files doing and what
                         execution_roadmap.md   step by step execution plan
                         aggregate_identity.md  defining aggregate identities
+            └── management/
+    │           └── commands/
+    │               └── rebuild_product_search_projection.py  👈 NEW
+                        run_product_event_consumer.py           
 
 🗂️ EXACT TEST FOLDER PLACEMENT (FINAL)
 
